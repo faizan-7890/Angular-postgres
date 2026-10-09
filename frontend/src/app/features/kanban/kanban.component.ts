@@ -32,13 +32,13 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
       <!-- Header -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-3">
+          <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
             Work Orders Kanban
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-mono font-medium">
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-mono font-medium">
               {{ totalActiveCount() }} Active
             </span>
           </h1>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
             Drag cards across columns to advance maintenance workflows with real-time optimistic state.
           </p>
         </div>
@@ -46,7 +46,7 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
         <div class="flex items-center gap-3">
           <button
             (click)="showCreateModal.set(true)"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/20 transition-all"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 transition-all"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -57,9 +57,9 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
       </div>
 
       <!-- Quick Filter Bar -->
-      <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md flex flex-col sm:flex-row items-center gap-3 text-xs">
+      <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex flex-col sm:flex-row items-center gap-3 text-xs">
         <div class="relative flex-1 w-full">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
@@ -69,16 +69,16 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
             [ngModel]="filterQuery()"
             (ngModelChange)="filterQuery.set($event)"
             placeholder="Filter cards by title or asset..."
-            class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+            class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div class="flex items-center gap-2 w-full sm:w-auto">
-          <span class="text-slate-400 font-semibold whitespace-nowrap">Priority:</span>
+          <span class="text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap">Priority:</span>
           <select
             [ngModel]="selectedPriority()"
             (ngModelChange)="selectedPriority.set($event)"
-            class="px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-200 focus:outline-none focus:border-blue-500 w-full sm:w-auto"
+            class="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500 w-full sm:w-auto"
           >
             <option value="">All Priorities</option>
             <option value="LOW">Low</option>
@@ -90,7 +90,7 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
           @if (filterQuery() || selectedPriority()) {
             <button
               (click)="filterQuery.set(''); selectedPriority.set('')"
-              class="px-2.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white border border-slate-700"
+              class="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 shadow-sm"
             >
               Clear
             </button>
@@ -107,14 +107,14 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
       } @else {
         <div cdkDropListGroup class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Column 1: PENDING -->
-          <div class="flex flex-col rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden min-h-[550px]">
+          <div class="flex flex-col rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden min-h-[550px]">
             <!-- Column Header -->
-            <div class="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/90 flex items-center justify-between">
               <div class="flex items-center gap-2.5">
                 <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50"></span>
-                <h3 class="font-bold text-sm text-white uppercase tracking-wider">Pending</h3>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider">Pending</h3>
               </div>
-              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                 {{ filteredPending().length }}
               </span>
             </div>
@@ -125,12 +125,12 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
               id="col-pending"
               [cdkDropListData]="pendingOrders()"
               (cdkDropListDropped)="onDrop($event, 'PENDING')"
-              class="flex-1 p-3 space-y-3 overflow-y-auto"
+              class="flex-1 p-3 space-y-3 overflow-y-auto bg-slate-50/50 dark:bg-transparent"
             >
               @if (filteredPending().length === 0) {
-                <div class="h-36 rounded-xl border border-dashed border-slate-800/80 flex flex-col items-center justify-center text-slate-500 text-xs p-4 text-center">
+                <div class="h-36 rounded-xl border border-dashed border-slate-300 dark:border-slate-800/80 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-xs p-4 text-center">
                   <span>No pending work orders</span>
-                  <span class="text-[10px] text-slate-600 mt-1">Drag tickets here to reset</span>
+                  <span class="text-[10px] text-slate-400 dark:text-slate-600 mt-1">Drag tickets here to reset</span>
                 </div>
               }
 
@@ -138,45 +138,45 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
                 <div
                   cdkDrag
                   [cdkDragData]="order"
-                  class="p-4 rounded-xl bg-slate-800/90 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 shadow-md cursor-grab active:cursor-grabbing transition-colors group relative"
+                  class="p-4 rounded-xl bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing transition-all group relative"
                 >
                   <!-- Drag Handle / Header -->
                   <div class="flex items-center justify-between mb-2">
                     <span
                       class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
                       [ngClass]="{
-                        'bg-rose-500/20 text-rose-300 border border-rose-500/30': order.priority === 'CRITICAL',
-                        'bg-amber-500/20 text-amber-300 border border-amber-500/30': order.priority === 'HIGH',
-                        'bg-blue-500/20 text-blue-300 border border-blue-500/30': order.priority === 'MEDIUM',
-                        'bg-slate-700/50 text-slate-300 border border-slate-600': order.priority === 'LOW'
+                        'bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30': order.priority === 'CRITICAL',
+                        'bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30': order.priority === 'HIGH',
+                        'bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/30': order.priority === 'MEDIUM',
+                        'bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600': order.priority === 'LOW'
                       }"
                     >
                       {{ order.priority }}
                     </span>
-                    <span class="text-[11px] font-mono text-slate-500">
+                    <span class="text-[11px] font-mono text-slate-400 dark:text-slate-500">
                       {{ order.scheduled_date ? (order.scheduled_date | date:'MMM d') : 'Pending' }}
                     </span>
                   </div>
 
                   <!-- Title & Description -->
-                  <h4 class="font-bold text-sm text-white group-hover:text-blue-400 transition-colors leading-snug">
+                  <h4 class="font-bold text-sm text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
                     {{ order.title }}
                   </h4>
                   @if (order.description) {
-                    <p class="text-xs text-slate-400 line-clamp-2 mt-1">{{ order.description }}</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">{{ order.description }}</p>
                   }
 
                   <!-- Asset Info -->
-                  <div class="mt-3 pt-2.5 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+                  <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <div class="flex items-center gap-1.5 truncate max-w-[170px]">
-                      <svg class="w-3.5 h-3.5 text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                       </svg>
-                      <span class="truncate font-medium text-slate-300">{{ order.assets?.name }}</span>
+                      <span class="truncate font-medium text-slate-700 dark:text-slate-300">{{ order.assets?.name }}</span>
                     </div>
 
                     <!-- Tech Pill -->
-                    <span class="text-[11px] text-slate-400 truncate">
+                    <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
                       {{ order.technicians?.full_name?.split(' ')?.[0] || 'Unassigned' }}
                     </span>
                   </div>
@@ -186,14 +186,14 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
           </div>
 
           <!-- Column 2: IN_PROGRESS -->
-          <div class="flex flex-col rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden min-h-[550px]">
+          <div class="flex flex-col rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden min-h-[550px]">
             <!-- Column Header -->
-            <div class="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/90 flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-sm shadow-indigo-400/50 animate-pulse"></span>
-                <h3 class="font-bold text-sm text-white uppercase tracking-wider">In Progress</h3>
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-sm shadow-indigo-500/50 animate-pulse"></span>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider">In Progress</h3>
               </div>
-              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                 {{ filteredInProgress().length }}
               </span>
             </div>
@@ -204,12 +204,12 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
               id="col-in-progress"
               [cdkDropListData]="inProgressOrders()"
               (cdkDropListDropped)="onDrop($event, 'IN_PROGRESS')"
-              class="flex-1 p-3 space-y-3 overflow-y-auto"
+              class="flex-1 p-3 space-y-3 overflow-y-auto bg-slate-50/50 dark:bg-transparent"
             >
               @if (filteredInProgress().length === 0) {
-                <div class="h-36 rounded-xl border border-dashed border-slate-800/80 flex flex-col items-center justify-center text-slate-500 text-xs p-4 text-center">
+                <div class="h-36 rounded-xl border border-dashed border-slate-300 dark:border-slate-800/80 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-xs p-4 text-center">
                   <span>No active tasks in progress</span>
-                  <span class="text-[10px] text-slate-600 mt-1">Drag tickets here to begin work</span>
+                  <span class="text-[10px] text-slate-400 dark:text-slate-600 mt-1">Drag tickets here to begin work</span>
                 </div>
               }
 
@@ -217,44 +217,44 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
                 <div
                   cdkDrag
                   [cdkDragData]="order"
-                  class="p-4 rounded-xl bg-slate-800/90 hover:bg-slate-800 border border-indigo-500/30 hover:border-indigo-500/60 shadow-md cursor-grab active:cursor-grabbing transition-colors group relative"
+                  class="p-4 rounded-xl bg-white dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-800 border border-indigo-500/30 hover:border-indigo-500/60 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing transition-all group relative"
                 >
                   <div class="flex items-center justify-between mb-2">
                     <span
                       class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
                       [ngClass]="{
-                        'bg-rose-500/20 text-rose-300 border border-rose-500/30': order.priority === 'CRITICAL',
-                        'bg-amber-500/20 text-amber-300 border border-amber-500/30': order.priority === 'HIGH',
-                        'bg-blue-500/20 text-blue-300 border border-blue-500/30': order.priority === 'MEDIUM',
-                        'bg-slate-700/50 text-slate-300 border border-slate-600': order.priority === 'LOW'
+                        'bg-rose-500/15 text-rose-600 dark:text-rose-300 border border-rose-500/30': order.priority === 'CRITICAL',
+                        'bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30': order.priority === 'HIGH',
+                        'bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-500/30': order.priority === 'MEDIUM',
+                        'bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600': order.priority === 'LOW'
                       }"
                     >
                       {{ order.priority }}
                     </span>
                     <button
                       (click)="triggerCompleteModal(order)"
-                      class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/30 transition-colors"
+                      class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/25 border border-emerald-500/30 transition-colors shadow-xs"
                     >
                       Complete &rarr;
                     </button>
                   </div>
 
-                  <h4 class="font-bold text-sm text-white group-hover:text-indigo-400 transition-colors leading-snug">
+                  <h4 class="font-bold text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
                     {{ order.title }}
                   </h4>
                   @if (order.description) {
-                    <p class="text-xs text-slate-400 line-clamp-2 mt-1">{{ order.description }}</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">{{ order.description }}</p>
                   }
 
-                  <div class="mt-3 pt-2.5 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+                  <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <div class="flex items-center gap-1.5 truncate max-w-[170px]">
-                      <svg class="w-3.5 h-3.5 text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                       </svg>
-                      <span class="truncate font-medium text-slate-300">{{ order.assets?.name }}</span>
+                      <span class="truncate font-medium text-slate-700 dark:text-slate-300">{{ order.assets?.name }}</span>
                     </div>
 
-                    <span class="text-[11px] text-indigo-300 font-medium truncate">
+                    <span class="text-[11px] text-indigo-600 dark:text-indigo-300 font-medium truncate">
                       {{ order.technicians?.full_name?.split(' ')?.[0] || 'Assigned' }}
                     </span>
                   </div>
@@ -264,14 +264,14 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
           </div>
 
           <!-- Column 3: COMPLETED -->
-          <div class="flex flex-col rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden min-h-[550px]">
+          <div class="flex flex-col rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden min-h-[550px]">
             <!-- Column Header -->
-            <div class="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/90 flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50"></span>
-                <h3 class="font-bold text-sm text-white uppercase tracking-wider">Completed</h3>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider">Completed</h3>
               </div>
-              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                 {{ filteredCompleted().length }}
               </span>
             </div>
@@ -282,12 +282,12 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
               id="col-completed"
               [cdkDropListData]="completedOrders()"
               (cdkDropListDropped)="onDrop($event, 'COMPLETED')"
-              class="flex-1 p-3 space-y-3 overflow-y-auto"
+              class="flex-1 p-3 space-y-3 overflow-y-auto bg-slate-50/50 dark:bg-transparent"
             >
               @if (filteredCompleted().length === 0) {
-                <div class="h-36 rounded-xl border border-dashed border-slate-800/80 flex flex-col items-center justify-center text-slate-500 text-xs p-4 text-center">
+                <div class="h-36 rounded-xl border border-dashed border-slate-300 dark:border-slate-800/80 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-xs p-4 text-center">
                   <span>No completed tickets</span>
-                  <span class="text-[10px] text-slate-600 mt-1">Drag tickets here to finalize</span>
+                  <span class="text-[10px] text-slate-400 dark:text-slate-600 mt-1">Drag tickets here to finalize</span>
                 </div>
               }
 
@@ -295,38 +295,38 @@ import { CompleteOrderModalComponent } from './complete-order-modal.component';
                 <div
                   cdkDrag
                   [cdkDragData]="order"
-                  class="p-4 rounded-xl bg-slate-800/50 hover:bg-slate-800/70 border border-emerald-500/20 shadow-md cursor-grab active:cursor-grabbing transition-colors group relative"
+                  class="p-4 rounded-xl bg-white dark:bg-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/70 border border-emerald-500/20 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing transition-all group relative"
                 >
                   <div class="flex items-center justify-between mb-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
                       RESOLVED
                     </span>
-                    <span class="text-[10px] font-mono text-emerald-400">
+                    <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
                       {{ order.completed_at ? (order.completed_at | date:'MMM d') : 'Done' }}
                     </span>
                   </div>
 
-                  <h4 class="font-bold text-sm text-slate-200 group-hover:text-white line-through opacity-80 group-hover:opacity-100 transition-all leading-snug">
+                  <h4 class="font-bold text-sm text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white line-through opacity-80 group-hover:opacity-100 transition-all leading-snug">
                     {{ order.title }}
                   </h4>
 
                   <!-- Consumed Parts Preview -->
                   @if (order.work_order_parts && order.work_order_parts.length > 0) {
                     <div class="mt-2 flex items-center gap-1 flex-wrap">
-                      <span class="text-[10px] text-slate-500">Parts:</span>
+                      <span class="text-[10px] text-slate-400 dark:text-slate-500">Parts:</span>
                       @for (wop of order.work_order_parts; track wop.part_id) {
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-emerald-300 border border-emerald-500/20 font-mono">
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 font-mono">
                           {{ wop.spare_parts?.name || 'Part' }} &times; {{ wop.quantity_used }}
                         </span>
                       }
                     </div>
                   }
 
-                  <div class="mt-3 pt-2.5 border-t border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
-                    <span class="truncate max-w-[170px] text-[11px] text-slate-400">
+                  <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-700/50 flex items-center justify-between text-xs text-slate-400">
+                    <span class="truncate max-w-[170px] text-[11px] text-slate-500 dark:text-slate-400">
                       {{ order.assets?.name }}
                     </span>
-                    <span class="text-[11px] text-slate-400">
+                    <span class="text-[11px] text-slate-500 dark:text-slate-400">
                       {{ order.technicians?.full_name?.split(' ')?.[0] || 'Unassigned' }}
                     </span>
                   </div>

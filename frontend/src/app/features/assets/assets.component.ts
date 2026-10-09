@@ -25,13 +25,13 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
       <!-- Header & Action Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-3">
+          <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
             Equipment & Asset Directory
-            <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-medium">
               {{ assets().length }} Registered
             </span>
           </h1>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
             Track machinery specifications, generate printable QR badges, and inspect maintenance records.
           </p>
         </div>
@@ -39,7 +39,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
         <div class="flex items-center gap-3">
           <button
             (click)="showCreateModal.set(true)"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/20 transition-all"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 transition-all"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -50,7 +50,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
       </div>
 
       <!-- Search & Filters Toolbar -->
-      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-lg flex flex-col md:flex-row items-center gap-4">
+      <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex flex-col md:flex-row items-center gap-4">
         <!-- Live Debounced Full-Text Search Input -->
         <div class="relative flex-1 w-full">
           <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -63,11 +63,11 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
             [ngModel]="searchQuery()"
             (ngModelChange)="onSearchInput($event)"
             placeholder="Full-text search assets (e.g. Compressor, Hydraulic, Bay 4)..."
-            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
           />
           @if (isSearching()) {
             <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-              <div class="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+              <div class="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
           }
         </div>
@@ -78,7 +78,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
           <select
             [ngModel]="selectedCategory()"
             (ngModelChange)="onCategoryChange($event)"
-            class="flex-1 md:w-44 px-3 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+            class="flex-1 md:w-44 px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500"
           >
             <option value="">All Categories</option>
             @for (cat of availableCategories(); track cat) {
@@ -90,7 +90,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
           <select
             [ngModel]="selectedStatus()"
             (ngModelChange)="onStatusChange($event)"
-            class="flex-1 md:w-44 px-3 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
+            class="flex-1 md:w-44 px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500"
           >
             <option value="">All Statuses</option>
             <option value="OPERATIONAL">OPERATIONAL</option>
@@ -103,7 +103,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
           @if (searchQuery() || selectedCategory() || selectedStatus()) {
             <button
               (click)="resetFilters()"
-              class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-400 hover:text-white border border-slate-700 hover:border-slate-600 transition-colors"
+              class="px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
               title="Clear Filters"
             >
               Reset
@@ -113,7 +113,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
       </div>
 
       <!-- Assets Table / Grid -->
-      <div class="rounded-2xl bg-slate-900 border border-slate-800 shadow-xl overflow-hidden">
+      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
         @if (loading()) {
           <div class="p-16 text-center text-slate-400">
             <div class="inline-block w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-3"></div>
@@ -121,19 +121,19 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
           </div>
         } @else if (assets().length === 0) {
           <div class="p-16 text-center">
-            <div class="w-12 h-12 rounded-2xl bg-slate-800/80 text-slate-400 flex items-center justify-center mx-auto mb-3">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 flex items-center justify-center mx-auto mb-3">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
               </svg>
             </div>
-            <p class="text-slate-300 font-semibold text-sm">No Matching Equipment Found</p>
+            <p class="text-slate-800 dark:text-slate-300 font-semibold text-sm">No Matching Equipment Found</p>
             <p class="text-slate-500 text-xs mt-1">Try adjusting your search keywords or filter selections.</p>
           </div>
         } @else {
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-xs">
               <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/80 text-slate-400 uppercase font-semibold text-[11px] tracking-wider">
+                <tr class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80 text-slate-500 dark:text-slate-400 uppercase font-semibold text-[11px] tracking-wider">
                   <th class="py-3.5 px-4 sm:px-6">Equipment / Serial</th>
                   <th class="py-3.5 px-4">Category</th>
                   <th class="py-3.5 px-4">Location</th>
@@ -142,16 +142,16 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
                   <th class="py-3.5 px-4 sm:px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-800/80">
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800/80">
                 @for (asset of assets(); track asset.id) {
-                  <tr class="hover:bg-slate-800/40 transition-colors group">
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors group">
                     <td class="py-4 px-4 sm:px-6">
                       <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl bg-slate-800 text-slate-300 flex items-center justify-center font-bold text-xs border border-slate-700/80 flex-shrink-0 group-hover:border-blue-500/50 transition-colors">
+                        <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-xs border border-slate-200 dark:border-slate-700/80 flex-shrink-0 group-hover:border-blue-500/50 transition-colors">
                           {{ asset.name.charAt(0) }}
                         </div>
                         <div>
-                          <p class="font-bold text-white text-sm group-hover:text-blue-400 transition-colors cursor-pointer" (click)="viewDetails(asset)">
+                          <p class="font-bold text-slate-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors cursor-pointer" (click)="viewDetails(asset)">
                             {{ asset.name }}
                           </p>
                           <p class="font-mono text-[11px] text-slate-400 mt-0.5">SN: {{ asset.serial_number }}</p>
@@ -160,14 +160,14 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
                     </td>
 
                     <td class="py-4 px-4">
-                      <span class="px-2 py-1 rounded-md bg-slate-800 text-slate-300 font-medium">
+                      <span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700/60">
                         {{ asset.category }}
                       </span>
                     </td>
 
-                    <td class="py-4 px-4 text-slate-300">
+                    <td class="py-4 px-4 text-slate-600 dark:text-slate-300">
                       <div class="flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
@@ -179,22 +179,22 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
                       <span
                         class="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase inline-flex items-center gap-1.5"
                         [ngClass]="{
-                          'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30': asset.status === 'OPERATIONAL',
-                          'bg-amber-500/15 text-amber-300 border border-amber-500/30': asset.status === 'UNDER_MAINTENANCE',
-                          'bg-slate-700/30 text-slate-400 border border-slate-600': asset.status === 'DECOMMISSIONED' || asset.status === 'IN_STORAGE'
+                          'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30': asset.status === 'OPERATIONAL',
+                          'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30': asset.status === 'UNDER_MAINTENANCE',
+                          'bg-slate-200 dark:bg-slate-700/30 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-600': asset.status === 'DECOMMISSIONED' || asset.status === 'IN_STORAGE'
                         }"
                       >
                         <span class="w-1.5 h-1.5 rounded-full" [ngClass]="{
-                          'bg-emerald-400': asset.status === 'OPERATIONAL',
-                          'bg-amber-400': asset.status === 'UNDER_MAINTENANCE',
-                          'bg-slate-400': asset.status === 'DECOMMISSIONED' || asset.status === 'IN_STORAGE'
+                          'bg-emerald-500 dark:bg-emerald-400': asset.status === 'OPERATIONAL',
+                          'bg-amber-500 dark:bg-amber-400': asset.status === 'UNDER_MAINTENANCE',
+                          'bg-slate-500 dark:bg-slate-400': asset.status === 'DECOMMISSIONED' || asset.status === 'IN_STORAGE'
                         }"></span>
                         {{ asset.status }}
                       </span>
                     </td>
 
                     <td class="py-4 px-4 text-center">
-                      <span class="text-xs font-mono text-slate-300">
+                      <span class="text-xs font-mono text-slate-600 dark:text-slate-300">
                         {{ asset.maintenance_schedules?.length || 0 }} PM / {{ asset._count?.work_orders ?? 0 }} WO
                       </span>
                     </td>
@@ -204,7 +204,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
                         <!-- Print QR Badge Button -->
                         <button
                           (click)="openQrModal(asset)"
-                          class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-blue-400 border border-slate-700 transition-colors"
+                          class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
                           title="Print QR Tag"
                         >
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,7 +215,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
                         <!-- View Details Button -->
                         <button
                           (click)="viewDetails(asset)"
-                          class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors"
+                          class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
                           title="View Details"
                         >
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
