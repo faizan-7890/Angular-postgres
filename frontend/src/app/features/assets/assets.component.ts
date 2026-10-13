@@ -9,6 +9,7 @@ import { Asset, AssetStatus } from '../../core/models/opstrack.models';
 import { AssetQrModalComponent } from './asset-qr-modal.component';
 import { AssetDetailModalComponent } from './asset-detail-modal.component';
 import { AssetCreateModalComponent } from './asset-create-modal.component';
+import { ClerkAuthService } from '../../core/services/clerk-auth.service';
 
 @Component({
   selector: 'app-assets',
@@ -37,15 +38,17 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
         </div>
 
         <div class="flex items-center gap-3">
-          <button
-            (click)="showCreateModal.set(true)"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 transition-all"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Register Equipment
-          </button>
+          @if (authService.canCreateAssets()) {
+            <button
+              (click)="showCreateModal.set(true)"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/20 transition-all"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              Register Equipment
+            </button>
+          }
         </div>
       </div>
 
@@ -263,6 +266,7 @@ import { AssetCreateModalComponent } from './asset-create-modal.component';
 export class AssetsComponent implements OnInit, OnDestroy {
   private api = inject(ApiService);
   private toast = inject(ToastService);
+  authService = inject(ClerkAuthService);
 
   loading = signal<boolean>(true);
   isSearching = signal<boolean>(false);

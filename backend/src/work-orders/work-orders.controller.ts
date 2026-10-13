@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Patch, Param, Body, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import { Controller, Get, Post, Patch, Param, Body, Query, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { WorkOrdersService } from './work-orders.service';
 import { CreateWorkOrderDto } from './dto/create-work-order.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { CompleteWorkOrderDto } from './dto/complete-work-order.dto';
+import { ClerkAuthGuard } from '../auth/guards/clerk-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @ApiTags('Work Orders')
+@ApiBearerAuth()
+@UseGuards(ClerkAuthGuard, RolesGuard)
 @Controller('api/work-orders')
 export class WorkOrdersController {
   constructor(private readonly workOrdersService: WorkOrdersService) {}
@@ -36,18 +41,21 @@ export class WorkOrdersController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new maintenance work order' })
+  @Roles('ADMIN', 'MANAGER')
+  @ApiOperation({ summary: 'Create a new maintenance work order (Admin or Manager only)' })
   create(@Body() dto: CreateWorkOrderDto) {
     return this.workOrdersService.create(dto);
   }
 
   @Patch(':id/status')
-  @ApiOperation({ summary: 'Update work order status (e.g. dragging across Kanban columns)' })
+  @Roles('ADMIN', 'MANAGER', 'TECHNICIAN')
+  @ApiOperation({ summary: 'Update work order status (Admin, Manager, or Technician)' })
   updateStatus(@Param('id') id: string, @Body() dto: UpdateStatusDto) {
     return this.workOrdersService.updateStatus(id, dto.status);
   }
 
   @Post(':id/complete')
+  @Roles('ADMIN', 'MANAGER', 'TECHNICIAN')
   @ApiOperation({ summary: 'Complete work order and atomically deduct consumed spare parts' })
   complete(@Param('id') id: string, @Body() dto: CompleteWorkOrderDto) {
     return this.workOrdersService.completeWorkOrder(id, dto);

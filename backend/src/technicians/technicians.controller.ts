@@ -1,8 +1,12 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { TechniciansService } from './technicians.service';
+import { ClerkAuthGuard } from '../auth/guards/clerk-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @ApiTags('Technicians')
+@ApiBearerAuth()
+@UseGuards(ClerkAuthGuard, RolesGuard)
 @Controller('api/technicians')
 export class TechniciansController {
   constructor(private readonly techniciansService: TechniciansService) {}

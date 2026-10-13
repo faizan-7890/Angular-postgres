@@ -7,12 +7,14 @@ import { WorkOrdersModule } from './work-orders/work-orders.module';
 import { MaintenanceSchedulesModule } from './maintenance-schedules/schedules.module';
 import { SparePartsModule } from './spare-parts/spare-parts.module';
 import { TechniciansModule } from './technicians/technicians.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),
     PrismaModule,
+    AuthModule,
     AssetsModule,
     WorkOrdersModule,
     MaintenanceSchedulesModule,

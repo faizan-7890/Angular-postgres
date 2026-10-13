@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Delete, Body, Param, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get, Post, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiQuery, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AssetsService } from './assets.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
+import { ClerkAuthGuard } from '../auth/guards/clerk-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @ApiTags('Assets')
+@ApiBearerAuth()
+@UseGuards(ClerkAuthGuard, RolesGuard)
 @Controller('api/assets')
 export class AssetsController {
   constructor(private readonly assetsService: AssetsService) {}
@@ -30,13 +35,15 @@ export class AssetsController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new physical equipment record' })
+  @Roles('ADMIN', 'MANAGER')
+  @ApiOperation({ summary: 'Create a new physical equipment record (Admin or Manager only)' })
   create(@Body() createAssetDto: CreateAssetDto) {
     return this.assetsService.create(createAssetDto);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete an asset record' })
+  @Roles('ADMIN')
+  @ApiOperation({ summary: 'Delete an asset record (Admin only)' })
   remove(@Param('id') id: string) {
     return this.assetsService.remove(id);
   }

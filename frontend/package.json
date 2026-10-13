@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@clerk/clerk-js": "^6.39.0",
     "lucide-angular": "^0.460.0",
     "qrcode": "^1.5.4",
     "rxjs": "~7.8.0",

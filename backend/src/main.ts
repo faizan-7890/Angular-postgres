@@ -33,6 +33,7 @@ async function bootstrap() {
     .addTag('Maintenance Schedules', 'Preventative maintenance rules and automated triggers')
     .addTag('Spare Parts', 'Inventory levels, pricing, and threshold alerts')
     .addTag('Technicians', 'Technician profiles and active assignment metrics')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

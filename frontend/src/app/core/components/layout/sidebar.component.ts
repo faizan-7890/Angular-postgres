@@ -1,6 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ClerkAuthService } from '../../services/clerk-auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -125,12 +126,16 @@ import { RouterModule } from '@angular/router';
       <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80">
         <div class="flex items-center gap-3 px-2 py-2 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 shadow-sm">
           <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
           </span>
           <div class="flex-1 min-w-0">
-            <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">Backend Connected</p>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400 font-mono truncate">localhost:3000</p>
+            <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">
+              Clerk Auth Active
+            </p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 font-mono truncate">
+              Role: {{ authService.userRole() }}
+            </p>
           </div>
         </div>
       </div>
@@ -140,4 +145,5 @@ import { RouterModule } from '@angular/router';
 export class SidebarComponent {
   isOpen = input<boolean>(false);
   closeSidebar = output<void>();
+  authService = inject(ClerkAuthService);
 }
