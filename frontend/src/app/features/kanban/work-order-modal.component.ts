@@ -1,4 +1,4 @@
-import { Component, output, OnInit, inject, signal, HostListener } from '@angular/core';
+import { Component, input, output, OnInit, inject, signal, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../core/services/api.service';
@@ -161,6 +161,9 @@ import {
   `
 })
 export class WorkOrderModalComponent implements OnInit {
+  preselectedAssetId = input<string | undefined>(undefined);
+  preselectedTitle = input<string | undefined>(undefined);
+
   close = output<void>();
   created = output<void>();
 
@@ -185,10 +188,17 @@ export class WorkOrderModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.preselectedTitle()) {
+      this.title = this.preselectedTitle()!;
+    }
+    if (this.preselectedAssetId()) {
+      this.assetId = this.preselectedAssetId()!;
+    }
+
     this.api.getAssets().subscribe({
       next: (data) => {
         this.assets.set(data);
-        if (data.length > 0) {
+        if (!this.assetId && data.length > 0) {
           this.assetId = data[0].id;
         }
       },
