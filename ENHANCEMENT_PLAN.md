@@ -49,7 +49,7 @@ flowchart TD
 | **1** | **Clerk Auth & Role-Based Access Control (RBAC)** | 🔴 Critical | Medium | ✅ **Completed** (`059aba1`) | `@clerk/backend`, `@clerk/clerk-js`, Angular Guards |
 | **2** | **Real-Time Push Alerts & Notifications (WebSockets)** | 🔴 High | Medium | 🎯 **Next Phase** | NestJS Gateway, `socket.io`, Web Audio |
 | **3** | **PDF Job Slips & Maintenance Reports** | 🟡 High | Low-Medium | 📋 Planned | PDFKit / pdfmake, Print stylesheets |
-| **4** | **QR / Barcode Scanning for Equipment & Bins** | 🟡 High | Medium | 📋 Planned | HTML5 Camera API, `html5-qrcode`, SVG QR |
+| **4** | **QR / Barcode Scanning for Equipment & Bins** | 🟡 High | Medium | ✅ **Completed** | HTML5 Camera API, `html5-qrcode`, SVG QR |
 | **5** | **Reliability Analytics (MTBF / MTTR / OEE)** | 🟢 High | Medium | 📋 Planned | PostgreSQL Analytical Views, SVG Charts |
 | **6** | **Audit Trail & System Activity History** | 🟢 Medium | Low | 📋 Planned | PostgreSQL Triggers, Prisma Middleware |
 | **7** | **Single-Command Docker Orchestration** | 🟢 Essential | Low | 📋 Planned | `docker-compose.yml`, multi-stage builds |
