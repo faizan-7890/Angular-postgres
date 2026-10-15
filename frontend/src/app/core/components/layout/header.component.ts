@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import { ClerkAuthService } from '../../services/clerk-auth.service';
+import { ScannerService } from '../../services/scanner.service';
 import { UserRole } from '../../models/auth.models';
 
 @Component({
@@ -30,8 +31,21 @@ import { UserRole } from '../../models/auth.models';
         </div>
       </div>
 
-      <!-- Right: Theme Toggle, Live Status & Clerk User Info -->
-      <div class="flex items-center gap-3">
+      <!-- Right: Scan Tag, Theme Toggle, Live Status & Clerk User Info -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Scan QR / Barcode Button -->
+        <button
+          (click)="scannerService.openScanner()"
+          title="Scan Equipment QR Code or Barcode"
+          class="p-2 sm:px-3 rounded-xl border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 transition-all flex items-center gap-1.5 text-xs font-semibold shadow-sm"
+          aria-label="Scan QR Code"
+        >
+          <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+          </svg>
+          <span class="hidden sm:inline font-bold">Scan Tag</span>
+        </button>
+
         <!-- Theme Switcher Button -->
         <button
           (click)="themeService.toggleTheme()"
@@ -186,6 +200,7 @@ export class HeaderComponent implements AfterViewInit {
   toggleSidebar = output<void>();
   themeService = inject(ThemeService);
   authService = inject(ClerkAuthService);
+  scannerService = inject(ScannerService);
   router = inject(Router);
 
   menuOpen = signal<boolean>(false);
