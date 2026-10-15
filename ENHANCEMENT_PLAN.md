@@ -44,15 +44,15 @@ flowchart TD
 
 ## 2. Enhancement Priority Matrix
 
-| # | Enhancement Feature | Business Value | Tech Complexity | Recommended Order | Key Technologies |
-|---|---------------------|----------------|-----------------|-------------------|------------------|
-| **1** | **Role-Based Access Control (RBAC) & Auth** | 🔴 Critical | Medium | **Phase 1** | JWT, Passport, Bcrypt, Angular Guards |
-| **2** | **Real-Time Push Notifications (WebSockets)** | 🔴 High | Medium | **Phase 2** | NestJS Gateways, Socket.io, Web Audio |
-| **3** | **PDF Job Slips & Maintenance Reports** | 🟡 High | Low-Medium | **Phase 3** | PDFKit / pdfmake, Print stylesheets |
-| **4** | **QR / Barcode Scanning for Equipment & Bins** | 🟡 High | Medium | **Phase 4** | HTML5 Camera API, `html5-qrcode`, SVG QR |
-| **5** | **Reliability Analytics (MTBF / MTTR / OEE)** | 🟢 High | Medium | **Phase 5** | PostgreSQL Analytical Views, Chart.js / SVG |
-| **6** | **Audit Trail & System Activity History** | 🟢 Medium | Low | **Phase 6** | PostgreSQL Triggers, Prisma Middleware |
-| **7** | **Single-Command Docker Orchestration** | 🟢 Essential | Low | **Phase 7** | `docker-compose.yml`, multi-stage builds |
+| # | Enhancement Feature | Business Value | Tech Complexity | Status | Key Technologies |
+|---|---------------------|----------------|-----------------|--------|------------------|
+| **1** | **Clerk Auth & Role-Based Access Control (RBAC)** | 🔴 Critical | Medium | ✅ **Completed** (`059aba1`) | `@clerk/backend`, `@clerk/clerk-js`, Angular Guards |
+| **2** | **Real-Time Push Alerts & Notifications (WebSockets)** | 🔴 High | Medium | 🎯 **Next Phase** | NestJS Gateway, `socket.io`, Web Audio |
+| **3** | **PDF Job Slips & Maintenance Reports** | 🟡 High | Low-Medium | 📋 Planned | PDFKit / pdfmake, Print stylesheets |
+| **4** | **QR / Barcode Scanning for Equipment & Bins** | 🟡 High | Medium | 📋 Planned | HTML5 Camera API, `html5-qrcode`, SVG QR |
+| **5** | **Reliability Analytics (MTBF / MTTR / OEE)** | 🟢 High | Medium | 📋 Planned | PostgreSQL Analytical Views, SVG Charts |
+| **6** | **Audit Trail & System Activity History** | 🟢 Medium | Low | 📋 Planned | PostgreSQL Triggers, Prisma Middleware |
+| **7** | **Single-Command Docker Orchestration** | 🟢 Essential | Low | 📋 Planned | `docker-compose.yml`, multi-stage builds |
 
 ---
 
@@ -277,17 +277,17 @@ gantt
 
 ---
 
-## 5. Next Decision: Where Should We Start?
-
-When you are ready to implement the next enhancement, we can begin with any of these:
-
-1. **Option A (Recommended First): Role-Based Access Control (RBAC)**  
-   *Add Login, JWT tokens, and Admin / Manager / Technician roles.*
-2. **Option B: Real-Time Alerts & WebSockets**  
-   *Add live popups and audio chimes when high-priority breakdowns are created.*
-3. **Option C: Printable Job Cards & PDF Export**  
-   *Generate downloadable, printable work order slips for technicians.*
-4. **Option D: QR Code Tag Generator & Scanner**  
-   *Generate equipment tags and scan them with a camera.*
-
-*(No code will be modified until you confirm which enhancement you would like to proceed with.)*
+## 5. Next Enhancement Options (Select to Proceed)
+ 
+Now that **Phase 1 (Clerk Auth & RBAC)** is complete, here are the next enhancement targets:
+ 
+1. **Option A (Recommended Next): Real-Time Alerts & Notification Engine (WebSockets)**  
+   *Instant popups, audio chime on emergency breakdowns, low spare part stock alerts, and live Kanban auto-refresh across connected screens.*
+2. **Option B: Work Order Printable Job Cards & PDF Generation**  
+   *Downloadable 1-page technician job cards with LOTO safety warnings, spare parts checklist, and signature sign-off box.*
+3. **Option C: QR Code Equipment Tags & Camera Scanner**  
+   *Generate printable QR labels for assets; scan machinery tags using webcam or phone camera to jump to asset history.*
+4. **Option D: Industrial Reliability Analytics (MTBF / MTTR / Availability)**  
+   *Mean Time Between Failures & Mean Time To Repair calculations with interactive failure trend dashboards.*
+ 
+*(No code or commands will be run until you confirm which enhancement to begin.)*
