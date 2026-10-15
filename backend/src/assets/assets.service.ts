@@ -52,8 +52,13 @@ export class AssetsService {
   }
 
   async findOne(id: string) {
-    const asset = await this.prisma.assets.findUnique({
-      where: { id },
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
+    const whereCondition: any = isUuid
+      ? { id }
+      : { serial_number: { equals: id, mode: 'insensitive' } };
+
+    const asset = await this.prisma.assets.findFirst({
+      where: whereCondition,
       include: {
         maintenance_schedules: true,
         work_orders: {
@@ -71,7 +76,7 @@ export class AssetsService {
     });
 
     if (!asset) {
-      throw new NotFoundException(`Asset with ID ${id} not found`);
+      throw new NotFoundException(`Asset '${id}' not found`);
     }
 
     return asset;
