@@ -6,11 +6,29 @@ import { SidebarComponent } from './core/components/layout/sidebar.component';
 import { HeaderComponent } from './core/components/layout/header.component';
 import { ToastComponent } from './core/components/toast/toast.component';
 import { ThemeService } from './core/services/theme.service';
+import { ToastService } from './core/services/toast.service';
+import { QrScannerModalComponent } from './core/components/scanner/qr-scanner-modal.component';
+import { ScannedAssetModalComponent } from './core/components/scanner/scanned-asset-modal.component';
+import { AssetDetailModalComponent } from './features/assets/asset-detail-modal.component';
+import { AssetQrModalComponent } from './features/assets/asset-qr-modal.component';
+import { WorkOrderModalComponent } from './features/kanban/work-order-modal.component';
+import { Asset } from './core/models/opstrack.models';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent, ToastComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    SidebarComponent,
+    HeaderComponent,
+    ToastComponent,
+    QrScannerModalComponent,
+    ScannedAssetModalComponent,
+    AssetDetailModalComponent,
+    AssetQrModalComponent,
+    WorkOrderModalComponent,
+  ],
   template: `
     @if (isAuthRoute()) {
       <!-- Fullscreen Auth View (Login / Clerk Component) -->
@@ -30,6 +48,42 @@ import { ThemeService } from './core/services/theme.service';
       </div>
     }
 
+    <!-- Global Machinery QR & Barcode Camera Scanner Modal -->
+    <app-qr-scanner-modal />
+
+    <!-- Scanned Equipment Quick Actions Modal -->
+    <app-scanned-asset-modal
+      (openWorkOrder)="onOpenWorkOrder($event)"
+      (openDetails)="onOpenDetails($event)"
+      (openPrintBadge)="onOpenPrintBadge($event)"
+    />
+
+    <!-- Global Asset Details Modal -->
+    @if (selectedDetailAssetId()) {
+      <app-asset-detail-modal
+        [assetId]="selectedDetailAssetId()!"
+        (close)="selectedDetailAssetId.set(null)"
+      />
+    }
+
+    <!-- Global Asset QR Printable Badge Modal -->
+    @if (selectedQrAsset(); as asset) {
+      <app-asset-qr-modal
+        [asset]="asset"
+        (close)="selectedQrAsset.set(null)"
+      />
+    }
+
+    <!-- Quick Work Order Creation Modal (Triggered by QR Scanner) -->
+    @if (quickWorkOrderAsset(); as asset) {
+      <app-work-order-modal
+        [preselectedAssetId]="asset.id"
+        [preselectedTitle]="'Emergency Breakdown: ' + asset.name"
+        (close)="quickWorkOrderAsset.set(null)"
+        (created)="onWorkOrderCreated()"
+      />
+    }
+
     <app-toast />
   `,
 })
@@ -37,7 +91,13 @@ export class AppComponent {
   sidebarOpen = signal<boolean>(false);
   isAuthRoute = signal<boolean>(false);
 
+  // Global scanner modals state
+  selectedDetailAssetId = signal<string | null>(null);
+  selectedQrAsset = signal<Asset | null>(null);
+  quickWorkOrderAsset = signal<Asset | null>(null);
+
   themeService = inject(ThemeService);
+  private toast = inject(ToastService);
   private router = inject(Router);
 
   constructor() {
@@ -50,5 +110,22 @@ export class AppComponent {
 
   toggleSidebar() {
     this.sidebarOpen.update((v) => !v);
+  }
+
+  onOpenDetails(asset: Asset) {
+    this.selectedDetailAssetId.set(asset.id);
+  }
+
+  onOpenPrintBadge(asset: Asset) {
+    this.selectedQrAsset.set(asset);
+  }
+
+  onOpenWorkOrder(asset: Asset) {
+    this.quickWorkOrderAsset.set(asset);
+  }
+
+  onWorkOrderCreated() {
+    this.quickWorkOrderAsset.set(null);
+    this.toast.showSuccess('Work order dispatched successfully for scanned asset!', 'Order Created');
   }
 }
